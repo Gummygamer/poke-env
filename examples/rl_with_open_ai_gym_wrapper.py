@@ -12,6 +12,8 @@ from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 
+global graph = tf.compat.v1.get_default_graph()
+
 
 # We define our RL player
 # It needs a state embedder and a reward computer, hence these two methods
@@ -136,13 +138,15 @@ if __name__ == "__main__":
     )
 
     dqn.compile(Adam(lr=0.00025), metrics=["mae"])
-
+    
+    with graph.as_default():
     # Training
-    env_player.play_against(
-        env_algorithm=dqn_training,
-        opponent=opponent,
-        env_algorithm_kwargs={"dqn": dqn, "nb_steps": NB_TRAINING_STEPS},
-    )
+       env_player.play_against(
+          env_algorithm=dqn_training,
+          opponent=opponent,
+          env_algorithm_kwargs={"dqn": dqn, "nb_steps": NB_TRAINING_STEPS},
+       )
+      
     model.save("model_%d" % NB_TRAINING_STEPS)
 
     # Evaluation
