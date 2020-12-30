@@ -80,7 +80,8 @@ np.random.seed(0)
 
 # This is the function that will be used to train the dqn
 def dqn_training(player, dqn, nb_steps):
-    dqn.fit(player, nb_steps=nb_steps)
+    with graph.as_default():
+      dqn.fit(player, nb_steps=nb_steps)
     player.complete_current_battle()
 
 
@@ -141,13 +142,12 @@ if __name__ == "__main__":
 
     dqn.compile(Adam(lr=0.00025), metrics=["mae"])
     
-    with graph.as_default():
     # Training
-       env_player.play_against(
-          env_algorithm=dqn_training,
-          opponent=opponent,
-          env_algorithm_kwargs={"dqn": dqn, "nb_steps": NB_TRAINING_STEPS},
-       )
+    env_player.play_against(
+     env_algorithm=dqn_training,
+     opponent=opponent,
+     env_algorithm_kwargs={"dqn": dqn, "nb_steps": NB_TRAINING_STEPS},
+    )
       
     model.save("model_%d" % NB_TRAINING_STEPS)
 
