@@ -12,7 +12,7 @@ from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 
-import tf.keras.backend as K
+import tensorflow.keras.backend as K
 
 session = K.get_session()
 init = tf.global_variables_initializer()
