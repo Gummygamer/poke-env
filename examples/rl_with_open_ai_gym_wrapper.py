@@ -12,7 +12,9 @@ from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 
-global graph = tf.compat.v1.get_default_graph()
+global graph 
+
+graph = tf.compat.v1.get_default_graph()
 
 
 # We define our RL player
