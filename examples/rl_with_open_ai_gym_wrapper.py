@@ -14,7 +14,7 @@ from tensorflow.keras.optimizers import Adam
 
 
 session = tf.compat.v1.keras.backend.get_session()
-init = tf.global_variables_initializer()
+init = tf.compat.v1.global_variables_initializer()
 session.run(init)
 
 global graph 
